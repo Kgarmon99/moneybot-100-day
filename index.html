@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyBot 100-Day Challenge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .grid-square { aspect-ratio: 1 / 1; transition: all 0.3s ease; }
+        .day-completed { background: linear-gradient(135deg, #fbbf24, #d97706); box-shadow: 0 0 15px rgba(251, 191, 36, 0.4); }
+        .day-pending { background: #1f2937; border: 1px solid #374151; }
+        .day-today { border: 2px solid #fbbf24; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-black text-white font-sans min-h-screen flex flex-col items-center p-6">
+    <div class="max-w-2xl w-full">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-600 mb-2">100-DAY MONEY CHALLENGE</h1>
+            <p class="text-gray-400">Target: $400/week Cap | $450k/week Revenue</p>
+        </header>
+
+        <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+                <p class="text-zinc-500 text-xs uppercase tracking-widest mb-1">Cash In Vault</p>
+                <p class="text-2xl font-bold text-green-400">$10,798</p>
+            </div>
+            <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+                <p class="text-zinc-500 text-xs uppercase tracking-widest mb-1">Daily Budget</p>
+                <p class="text-2xl font-bold text-yellow-400">$57.00</p>
+            </div>
+        </div>
+
+        <div id="challenge-grid" class="grid grid-cols-10 gap-2 mb-8">
+            <!-- Grid will be populated by JS -->
+        </div>
+
+        <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800">
+            <div class="flex justify-between items-end mb-4">
+                <div>
+                    <p class="text-zinc-500 text-xs uppercase tracking-widest">Current Status</p>
+                    <h2 class="text-xl font-bold">DAY 1 <span class="text-zinc-600">/ 100</span></h2>
+                </div>
+                <div class="text-right">
+                    <p class="text-zinc-500 text-xs uppercase tracking-widest">Streak</p>
+                    <p class="text-xl font-bold text-yellow-500">0 Days</p>
+                </div>
+            </div>
+            <div class="w-full bg-zinc-800 h-3 rounded-full overflow-hidden">
+                <div class="bg-yellow-500 h-full" style="width: 1%"></div>
+            </div>
+        </div>
+
+        <footer class="mt-8 text-center text-zinc-600 text-xs">
+            <p>Updated automatically by Capital Bot</p>
+        </footer>
+    </div>
+
+    <script>
+        const grid = document.getElementById('challenge-grid');
+        const currentDay = 1;
+        const completedDays = 0;
+
+        for (let i = 1; i <= 100; i++) {
+            const square = document.createElement('div');
+            square.classList.add('grid-square', 'rounded-lg', 'flex', 'items-center', 'justify-center', 'text-[10px]', 'font-bold');
+            
+            if (i <= completedDays) {
+                square.classList.add('day-completed');
+                square.innerText = '✓';
+            } else if (i === currentDay) {
+                square.classList.add('day-today', 'day-pending');
+                square.innerText = i;
+            } else {
+                square.classList.add('day-pending');
+                square.innerText = i;
+                square.style.opacity = "0.3";
+            }
+            grid.appendChild(square);
+        }
+    </script>
+</body>
+</html>
