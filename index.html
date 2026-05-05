@@ -15,7 +15,19 @@
     </style>
 </head>
 <body class="bg-black text-white font-sans min-h-screen flex flex-col items-center p-6">
-    <div class="max-w-2xl w-full">
+    
+    <!-- Password Gate -->
+    <div id="login-screen" class="fixed inset-0 bg-black z-50 flex flex-col items-center justify-center p-6">
+        <div class="max-w-md w-full text-center">
+            <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-600 mb-4">100-DAY CHALLENGE</h1>
+            <p class="text-zinc-500 mb-8">Enter the password to access your dashboard</p>
+            <input type="password" id="password-input" placeholder="Enter password..." class="w-full bg-zinc-900 border border-zinc-700 rounded-lg px-4 py-3 text-center text-xl mb-4 focus:outline-none focus:border-yellow-500">
+            <button onclick="checkPassword()" class="w-full bg-gradient-to-r from-yellow-500 to-amber-600 text-black font-bold py-3 rounded-lg hover:opacity-90 transition">Unlock</button>
+            <p id="error-msg" class="text-red-500 mt-4 hidden">Wrong password. Try again.</p>
+        </div>
+    </div>
+
+    <div id="dashboard" class="max-w-2xl w-full hidden">
         <header class="text-center mb-8">
             <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-600 mb-2">100-DAY MONEY CHALLENGE</h1>
             <p class="text-gray-400">Target: Close $450k/week</p>
@@ -107,6 +119,24 @@
             <p>Updated automatically by Capital Bot</p>
         </footer>
     </div>
+
+    <script>
+        // Password Gate
+        function checkPassword() {
+            const input = document.getElementById('password-input').value;
+            if (input === '💯') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('dashboard').classList.remove('hidden');
+            } else {
+                document.getElementById('error-msg').classList.remove('hidden');
+            }
+        }
+        
+        // Allow Enter key
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+    </script>
 
     <script>
         // Config
